@@ -45,20 +45,20 @@ void setup() {
 
   if(client.connect(clientId.c_str())){
     Serial.println("Connected to Broker ############################");
+     client.setCallback(callback);
+     client.subscribe("NTTOPIC");
+    Serial.println("Subscribing ");
+    
     client.publish("NTTOPIC" , "on");
     Serial.println("Published ");
-    Serial.println("Subscribing ");
-     client.subscribe("NTTOPIC");
-     client.setCallback(callback);
+    
      delay(5000);
      client.publish("NTTOPIC", "off");
   }  
-
-  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
     delay(5000);
-     client.publish("NTTOPIC", "off");
-}
+    client.loop();
+ }
